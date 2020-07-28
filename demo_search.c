@@ -54,6 +54,27 @@ void demo_binary_search(int * a, int N, int key)
 }
 
 
+void demo_linear_search(int * a, int N, int key)
+{
+	// Create a ctemplate for a - to be used by the library
+	ctemplate 		t_a = {a, sizeof(int)};
+	ctl_size_t 		t_N = N;
+	ctemplate 		t_key = {&key, sizeof(int)};
+
+	// Run the binary search algorithm
+	ctl_size_t 		pos = ctl_linear_search(t_a, t_N, t_key, &demo_compare);
+
+	if(pos == N)
+	{
+		printf("Number %d not found\n", key);
+	}
+	else
+	{
+		printf("Found number %d at position: %ld\n", key, pos);
+	}
+}
+
+
 int main()
 {
 	// Create an array
@@ -64,7 +85,9 @@ int main()
 
 	demo_binary_search(a, N, 25);
 
-	demo_binary_search(a, N, 1);
+	demo_linear_search(a, N, 1);
 
-	demo_binary_search(a, N, 19);
+	demo_linear_search(a, N, 19);
+
+
 }

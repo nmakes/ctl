@@ -1,3 +1,16 @@
+/*
+
+	C-Template Library (CTL)
+	Written by Naveen Venkat
+	naveenvenkat.com
+
+	@todo:
+		- Add description
+		- What is included / not included
+
+*/
+
+
 #ifndef __CTEMPLATE_H
 #define __CTEMPLATE_H
 
@@ -33,13 +46,6 @@ ctemplate ctl_next(
 ctemplate ctl_prev(
 	ctemplate t, // Reference to the ctemplate
 	ctl_size_t n); // How many steps to move in memory
-
-
-ctl_size_t ctl_binary_search(
-		ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
-		ctl_size_t length, // Length of the array
-		ctemplate key, // ctemplate containing pointer to the value to be searched for
-		int (*compare)(ctemplate, ctemplate)); // Pointer to the comparator function
 
 
 
