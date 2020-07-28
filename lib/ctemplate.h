@@ -10,6 +10,7 @@
 
 */
 
+#include <stdlib.h>
 
 #ifndef __CTEMPLATE_H
 #define __CTEMPLATE_H
@@ -47,6 +48,16 @@ ctemplate ctl_prev(
 	ctemplate t, // Reference to the ctemplate
 	ctl_size_t n); // How many steps to move in memory
 
+
+void ctl_swap( // Performs a deep swap!
+	ctemplate *t1, // First argument
+	ctemplate *t2, // Second argument
+	void (*assign)(ctemplate * larg, ctemplate * rarg)); // assign operator to copy data across congruent templates
+
+
+void ctl_assert(
+	int condition, // Condition to assert
+	char * message); // Message to throw if condition fails
 
 
 #endif
