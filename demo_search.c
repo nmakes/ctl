@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../ctl.c"
+#include "ctl.c"
 
 /*
 	Binary Search Demo:

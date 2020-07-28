@@ -49,10 +49,10 @@ ctemplate ctl_prev(
 	ctl_size_t n); // How many steps to move in memory
 
 
-void ctl_swap( // Performs a deep swap!
-	ctemplate *t1, // First argument
-	ctemplate *t2, // Second argument
-	void (*assign)(ctemplate * larg, ctemplate * rarg)); // assign operator to copy data across congruent templates
+void ctl_deep_swap( // Performs a deep swap!
+	ctemplate t1, // First argument
+	ctemplate t2, // Second argument
+	void (*assign)(ctemplate, ctemplate)); // assign operator to copy data across congruent templates
 
 
 void ctl_assert(

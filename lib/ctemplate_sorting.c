@@ -7,7 +7,8 @@
 ctl_size_t ctl_selection_sort(
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
 	ctl_size_t length, // Length of the array
-	int (*compare)(ctemplate, ctemplate)); // Pointer to the comparator function
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	/*
 		Algorithm:
@@ -31,11 +32,11 @@ ctl_size_t ctl_selection_sort(
 		pos = i;
 		for (ctl_size_t j=i+1; j<length; j++)
 		{
-			if (compare(next(arr, pos), next(arr, j)) < 0)
+			if (compare(ctl_next(arr, j), ctl_next(arr, pos)) < 0)
 			{
 				pos = j;
 			}
 		}
-		
+		ctl_deep_swap(ctl_next(arr, i), ctl_next(arr, pos), assign);
 	}
 }

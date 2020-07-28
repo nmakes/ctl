@@ -30,20 +30,20 @@ ctemplate ctl_prev(
 }
 
 
-void ctl_swap( // Performs a deep swap!
-	ctemplate *t1, // First argument
-	ctemplate *t2, // Second argument
-	void (*assign)(ctemplate * larg, ctemplate * rarg)) // assign operator to copy data across congruent templates
+void ctl_deep_swap( // Performs a deep swap!
+	ctemplate t1, // First argument
+	ctemplate t2, // Second argument
+	void (*assign)(ctemplate, ctemplate)) // assign operator to copy data across congruent templates
 {
-	ctl_assert(t1->size == t2->size, "Template element size mismatch")
+	ctl_assert(t1.size == t2.size, "Template element size mismatch");
 
 	ctemplate temp;
-	temp.ptr = malloc(t1->size);
-	temp.size = t1->size;
+	temp.ptr = malloc(t1.size);
+	temp.size = t1.size;
 
-	assign(&temp, t1);
+	assign(temp, t1);
 	assign(t1, t2);
-	assign(t2, &temp);
+	assign(t2, temp);
 
 	free(temp.ptr);
 }
