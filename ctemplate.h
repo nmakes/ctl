@@ -1,4 +1,7 @@
-#pragma once
+#ifndef __CTEMPLATE_H
+#define __CTEMPLATE_H
+
+
 
 /*
 	Defining standard names for types
@@ -11,6 +14,7 @@ typedef struct
 	void * ptr;
 	ctl_size_t size;
 } ctemplate;
+
 
 
 
@@ -36,3 +40,7 @@ ctl_size_t ctl_binary_search(
 		ctl_size_t length, // Length of the array
 		ctemplate key, // ctemplate containing pointer to the value to be searched for
 		int (*compare)(ctemplate, ctemplate)); // Pointer to the comparator function
+
+
+
+#endif
