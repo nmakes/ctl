@@ -50,6 +50,15 @@ void demo_selection_sort(int * a, int N)
 	ctl_selection_sort(t_a, t_N, &demo_compare, &demo_assign);
 }
 
+void demo_insertion_sort(int * a, int N)
+{
+	// Create a ctemplate for a - to be used by the library
+	ctemplate 		t_a = {a, sizeof(int)};
+	ctl_size_t 		t_N = N;
+
+	ctl_insertion_sort((ctemplate){a, sizeof(int)}, t_N, &demo_compare, &demo_assign);
+}
+
 int main()
 {
 	// Create an array
@@ -75,7 +84,8 @@ int main()
 	}
 	printf("\n");
 
-	demo_selection_sort(a, N);
+	// demo_selection_sort(a, N);
+	demo_insertion_sort(a, N);
 
 	printf("After Sorting Array:\n");
 	for(int i=0; i<N; i++)
