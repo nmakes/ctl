@@ -21,4 +21,10 @@ void ctl_insertion_sort(
 	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
 	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
 
+void ctl_bubble_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
+
 #endif

@@ -82,3 +82,37 @@ void ctl_insertion_sort(
 		}
 	}
 }
+
+
+void ctl_bubble_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	/*
+		Algorithm:
+
+		For i = {0, 1, 2, ..., length-1}
+		{
+			For j = {length-1, length-2, ..., i}
+			{
+				if (compare(A[j], A[j-1]) < 0)
+				{
+					swap(A[j], A[j-1]);
+				}
+			}
+		}
+	*/
+
+	for (ctl_size_t i=0; i<length; i++)
+	{
+		for (ctl_size_t j=length-1; j>i; j--)
+		{
+			if (compare(ctl_next(arr, j), ctl_next(arr, j-1)) < 0)
+			{
+				ctl_deep_swap(ctl_next(arr, j), ctl_next(arr, j-1), assign);
+			}
+		}
+	}
+}
