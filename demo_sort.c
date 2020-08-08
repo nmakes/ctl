@@ -69,10 +69,18 @@ void demo_quick_sort(int * a, int N)
 	ctl_quick_sort( (ctemplate){a, sizeof(int)}, N, &demo_compare, &demo_assign );
 }
 
+void demo_merge_sort(int * a, int N)
+{
+	ctl_merge_sort( (ctemplate){a, sizeof(int)}, N, &demo_compare, &demo_assign );
+}
+
 int main()
 {
 	// Create an array
 	int a[] = {24, 6, 7, 62, 18, 1, 50, 100, 39, 15, 88, 45};
+	// int a[] = {9, 3, 7, 5, 6, 4, 8, 2};
+	// int a[] = {8, 2};
+	// int a[] = {2};
 	int N = sizeof(a) / sizeof(int);
 
 	int m1 = 34;
@@ -97,7 +105,9 @@ int main()
 	// demo_selection_sort(a, N);
 	// demo_insertion_sort(a, N);
 	// demo_bubble_sort(a, N);
-	demo_quick_sort(a, N);
+	// demo_quick_sort(a, N);
+	demo_merge_sort(a, N);
+
 
 
 	printf("After Sorting Array:\n");

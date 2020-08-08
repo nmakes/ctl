@@ -84,6 +84,7 @@ void ctl_insertion_sort(
 }
 
 
+
 void ctl_bubble_sort(
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
 	ctl_size_t length, // Length of the array
@@ -116,6 +117,7 @@ void ctl_bubble_sort(
 		}
 	}
 }
+
 
 
 ctl_size_t ctl_quick_sort_partition(
@@ -184,4 +186,84 @@ void ctl_quick_sort(
 	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	ctl_quick_sort_recursive(arr, 0, length-1, compare, assign);
+}
+
+
+
+void ctl_merge_sort_merge(
+	ctemplate arr,
+	ctl_size_t ll, 
+	ctl_size_t hl,
+	ctl_size_t lr,
+	ctl_size_t hr,
+	ctemplate scratch,
+	int (*compare)(ctemplate, ctemplate),
+	void (*assign)(ctemplate, ctemplate))
+{
+	ctl_size_t pos = ll;
+	ctl_size_t i = ll, j = lr;
+
+	while( (i<=hl) && (j<=hr) )
+	{
+		if( compare( ctl_next(arr, i), ctl_next(arr, j) ) < 0 )
+		{
+			assign( ctl_next(scratch, pos++), ctl_next(arr, i++) );
+		}
+		else
+		{
+			assign( ctl_next(scratch, pos++), ctl_next(arr, j++) );
+		}
+	}
+
+	while( (i > hl) && (j <= hr) )
+	{
+		assign( ctl_next(scratch, pos++), ctl_next(arr, j++) );
+	}
+
+	while( (i <= hl) && (j > hr) )
+	{
+		assign( ctl_next(scratch, pos++), ctl_next(arr, i++) );
+	}
+
+	i = ll;
+
+	while(i <= hr)
+	{
+		assign( ctl_next(arr, i), ctl_next(scratch, i) );
+		i++;
+	}
+}
+
+
+void ctl_merge_sort_recursive(
+	ctemplate arr,
+	ctl_size_t low, 
+	ctl_size_t high,
+	ctemplate scratch,
+	int (*compare)(ctemplate, ctemplate),
+	void (*assign)(ctemplate, ctemplate))
+{
+	if(low < high)
+	{
+		ctl_size_t mid = (low + high) / 2;
+		ctl_merge_sort_recursive(arr, low, mid, scratch, compare, assign);
+		ctl_merge_sort_recursive(arr, mid+1, high, scratch, compare, assign);
+		ctl_merge_sort_merge(arr, low, mid, mid+1, high, scratch, compare, assign);
+	}
+}
+
+
+void ctl_merge_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	ctemplate scratch;
+	scratch.ptr = malloc(arr.size * length);
+	scratch.size = arr.size;
+	
+	ctl_merge_sort_recursive(arr, 0, length-1, scratch, compare, assign);
+
+	free(scratch.ptr);
 }
