@@ -21,7 +21,7 @@
 	Defining standard names for types
 */
 
-typedef unsigned long int ctl_size_t;
+typedef long int ctl_size_t;
 
 typedef struct
 {

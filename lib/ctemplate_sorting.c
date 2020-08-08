@@ -116,3 +116,72 @@ void ctl_bubble_sort(
 		}
 	}
 }
+
+
+ctl_size_t ctl_quick_sort_partition(
+	ctemplate arr,
+	ctl_size_t low,
+	ctl_size_t high,
+	int (*compare)(ctemplate, ctemplate),
+	void (*assign)(ctemplate, ctemplate))
+{
+
+	// printf("Partition with %ld, %ld", low, high);
+
+	ctl_size_t pivot = low;
+
+	// if (low > high)
+	// {
+	// 	return -1;
+	// }
+
+	ctl_size_t i = low, j = high;
+
+	while( i<j )
+	{
+		while ( (i<=high) && (compare(ctl_next(arr, i), ctl_next(arr, pivot)) <= 0))
+		{
+			i++;
+		}
+
+		while ( (j>=low) && (compare(ctl_next(arr, j), ctl_next(arr, pivot)) > 0))
+		{
+			j--;
+		}
+
+		if(i < j)
+		{
+			ctl_deep_swap(ctl_next(arr, j), ctl_next(arr, i), assign);
+		}
+	}
+
+	ctl_deep_swap( ctl_next(arr, pivot), ctl_next(arr, j), assign );
+
+	return j;
+}
+
+
+void ctl_quick_sort_recursive(
+	ctemplate arr,
+	ctl_size_t low,
+	ctl_size_t high,
+	int (*compare)(ctemplate, ctemplate),
+	void (*assign)(ctemplate, ctemplate))
+{
+	if(low < high)
+	{
+		ctl_size_t j = ctl_quick_sort_partition(arr, low, high, compare, assign);
+		ctl_quick_sort_recursive(arr, low, j-1, compare, assign);
+		ctl_quick_sort_recursive(arr, j+1, high, compare, assign);
+	}
+}
+
+
+ctl_size_t ctl_quick_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	ctl_quick_sort_recursive(arr, 0, length-1, compare, assign);
+}

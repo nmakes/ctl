@@ -64,6 +64,11 @@ void demo_bubble_sort(int * a, int N)
 	ctl_bubble_sort( (ctemplate){a, sizeof(int)}, N, &demo_compare, &demo_assign );
 }
 
+void demo_quick_sort(int * a, int N)
+{
+	ctl_quick_sort( (ctemplate){a, sizeof(int)}, N, &demo_compare, &demo_assign );
+}
+
 int main()
 {
 	// Create an array
@@ -91,7 +96,9 @@ int main()
 
 	// demo_selection_sort(a, N);
 	// demo_insertion_sort(a, N);
-	demo_bubble_sort(a, N);
+	// demo_bubble_sort(a, N);
+	demo_quick_sort(a, N);
+
 
 	printf("After Sorting Array:\n");
 	for(int i=0; i<N; i++)
