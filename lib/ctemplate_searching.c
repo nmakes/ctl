@@ -53,3 +53,87 @@ ctl_size_t ctl_linear_search(
 
 	return length;
 }
+
+
+ctemplate ctl_max(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	ctemplate temp;
+	assign(temp, ctl_next(arr, 0));
+
+	for(ctl_size_t i=0; i<length; i++)
+	{
+		if( compare(ctl_next(arr, i), temp) > 0 )
+		{
+			assign(temp, ctl_next(arr, i));
+		}
+	}
+
+	return temp;
+}
+
+
+ctl_size_t ctl_arg_max(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	ctl_size_t pos = 0;
+
+	for(ctl_size_t i=0; i<length; i++)
+	{
+		if( compare(ctl_next(arr, i), ctl_next(arr, pos)) > 0 )
+		{
+			pos = i;
+		}
+	}
+
+	return pos;
+}
+
+
+// ctl_size_t * ctl_arg_topk(
+// 	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+// 	ctl_size_t length, // Length of the array
+// 	ctl_size_t k, // value of k (number of top elements to be obtained)
+// 	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+// 	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+// {
+// 	// returns a list of indices of the topK elements
+
+// 	ctl_assert(k>=1, "At least one element must be returned.");
+
+// 	char * done = (char*)malloc(length);
+// 	for(ctl_size_t i=0; i<length; i++) 
+// 		done[i] = 0;
+
+// 	ctl_size_t * argtopk = (ctl_size_t*) malloc(sizeof(ctl_size_t) * k);
+
+// 	ctl_size_t largest = 0, temp;
+// 	for(ctl_size_t i=0; i<length; i++)
+// 	{
+// 		if(compare(ctl_next(arr, i), ctl_next(arr, largest)) > 0)
+// 		{
+// 			largest = i;
+// 		}
+// 	}
+
+// 	for(ctl_size_t i=0; i<k; i++)
+// 	{
+// 		temp = largest;
+// 		for(ctl_size_t j=0; j<length; j++)
+// 		{
+// 			if(done[j] != 0)
+// 			{
+// 				if(compare(temp, ctl_next(arr, j)) < 0)
+// 				{
+// 					argtopk[i] = j;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
