@@ -74,6 +74,11 @@ void demo_merge_sort(int * a, int N)
 	ctl_merge_sort( (ctemplate){a, sizeof(int)}, N, &demo_compare, &demo_assign );
 }
 
+void demo_topk_sort(int * a, int N, int K)
+{
+	ctl_topk_sort( (ctemplate){a, sizeof(int)}, N, K, &demo_compare, &demo_assign );
+}
+
 int main()
 {
 	// Create an array
@@ -106,7 +111,8 @@ int main()
 	// demo_insertion_sort(a, N);
 	// demo_bubble_sort(a, N);
 	// demo_quick_sort(a, N);
-	demo_merge_sort(a, N);
+	// demo_merge_sort(a, N);
+	demo_topk_sort(a, N, 5);
 
 
 

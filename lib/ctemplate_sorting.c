@@ -120,6 +120,46 @@ void ctl_bubble_sort(
 
 
 
+void ctl_topk_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	ctl_size_t k, // value of k (number of top elements to be sorted)
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	/*
+		Algorithm:
+
+		For i = {0, 1, ..., k-1}
+		{
+			M = i;
+			For j = {i+1, i+2, ..., length-1}
+			{
+				if (compare(A[M], A[j]) < 0)
+				{
+					M = j;
+				}
+			}
+			swap(A[M], A[i]);
+		}
+	*/
+	ctl_size_t pos;
+	for (ctl_size_t i=0; i<k; i++)
+	{
+		pos = i;
+		for (ctl_size_t j=i+1; j<length; j++)
+		{
+			if (compare(ctl_next(arr, j), ctl_next(arr, pos)) < 0)
+			{
+				pos = j;
+			}
+		}
+		ctl_deep_swap(ctl_next(arr, i), ctl_next(arr, pos), assign);
+	}
+}
+
+
+
 ctl_size_t ctl_quick_sort_partition(
 	ctemplate arr,
 	ctl_size_t low,

@@ -27,6 +27,13 @@ void ctl_bubble_sort(
 	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
 	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
 
+void ctl_topk_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	ctl_size_t k, // value of k (number of top elements to be sorted)
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
+
 void ctl_quick_sort(
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
 	ctl_size_t length, // Length of the array
@@ -46,5 +53,36 @@ ctl_size_t ctl_quick_sort_partition(
 	ctl_size_t high,
 	int (*compare)(ctemplate, ctemplate),
 	void (*assign)(ctemplate, ctemplate));
+
+void ctl_topk_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	ctl_size_t k,
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
+
+void ctl_merge_sort_merge(
+	ctemplate arr,
+	ctl_size_t ll, 
+	ctl_size_t hl,
+	ctl_size_t lr,
+	ctl_size_t hr,
+	ctemplate scratch,
+	int (*compare)(ctemplate, ctemplate),
+	void (*assign)(ctemplate, ctemplate));
+
+void ctl_merge_sort_recursive(
+	ctemplate arr,
+	ctl_size_t low, 
+	ctl_size_t high,
+	ctemplate scratch,
+	int (*compare)(ctemplate, ctemplate),
+	void (*assign)(ctemplate, ctemplate));
+
+void ctl_merge_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
 
 #endif
