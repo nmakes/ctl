@@ -63,3 +63,12 @@ cp -r ctl/ctlib ./myproject/ctlib
 #include "ctlib/ctl.c"
 ```
 
+### Run sample code
+
+Sample demonstrations are available in files named `demo_*`. To execute them,
+
+```
+cd ctl
+gcc demo_sort.c
+./a.out
+```
