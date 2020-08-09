@@ -2,9 +2,9 @@
 
 ## Generic Programming
 
-C++ uses templates to enable the convinience of type definitions at compile time. This enables generic programming while still maintaining the robustness of a strongly typed language.
+C++ uses templates to produce type definitions at compile time. This enables generic programming while still maintaining the robustness of a strongly typed language.
 
-But, C doesn't have such features. How do we solve it for C?
+But, C doesn't support templates. How does one solve it for C?
 
 ## Enter: ctemplate.
 
