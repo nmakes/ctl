@@ -1,5 +1,7 @@
 # The C-Template Library
 
+Version: 0.0.1
+
 ## Generic Programming
 
 C++ uses templates to produce type definitions at compile time. This enables generic programming while still maintaining the robustness of a strongly typed language.
