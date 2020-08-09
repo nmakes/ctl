@@ -2,15 +2,17 @@
 
 Version: 0.0.1
 
-## Generic Programming
+## Overview
 
 C++ uses templates to produce type definitions at compile time. This enables generic programming while still maintaining the robustness of a strongly typed language.
 
 But, C doesn't support templates. How does one solve it for C?
 
-## Enter: ctemplate.
+### Enter: ctemplate.
 
 The idea is to use the power of `void*` pointers to develop an interface which acts like a generic data type. Standard data structure and algorithm implementations will exploit the `ctemplate` interface, while the user will provide elementary functions such as a comparator and an assignment function.
+
+## Demo
 
 Let's demonstrate by example. Suppose we have an integer array as follows:
 
@@ -44,5 +46,20 @@ The sort function call is simply called by passing a `ctemplate` wrapper for the
 
 ctemplate wrapper = {arr, sizeof(int)};
 ctl_merge_sort( wrapper, length, compare, assign );
+```
+
+## Getting Started
+
+1. Download the repository and copy the library your local project folder (say, `./myproject`).
+
+```
+git clone https://github.com/nmakes/ctl
+cp -r ctl/ctlib ./myproject/ctlib
+```
+
+2. Import ctl and get started
+
+```
+#include "ctlib/ctl.c"
 ```
 
