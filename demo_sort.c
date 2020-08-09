@@ -3,8 +3,8 @@
 
 /*
 	Sort Demo:
-		- The user defines custom functions and utility functions that the library can use.
-		- Here we show a simple binary search application using an int array and the compare function
+		- The user defines custom compare and assign functions that the library can use.
+		- Here we demonstrate various sorting functions using an int array and the compare function
 */
 
 void demo_assign(ctemplate a, ctemplate b) // performs a deep copy
@@ -16,29 +16,15 @@ void demo_assign(ctemplate a, ctemplate b) // performs a deep copy
 	*((int*) a.ptr) = *((int*) b.ptr);
 }
 
-int demo_compare(ctemplate a, ctemplate b)
+int demo_compare(ctemplate left, ctemplate right)
 {
 	// User knows that the array is an int array. 
-	// Thus, user first parses the ctemplates to obtain the integer values.
-
-	int a1 = (* ((int*) a.ptr));
-	int a2 = (* ((int*) b.ptr));
+	// Thus, user first parses the ctemplates to obtain the integer values, then compares.
 
 	// The library requires the compare function to yield 0, if the values match,
 	// Otherwise, it must return negative or positive based on the comparison
 
-	if(a1==a2)
-	{
-		return 0;
-	}
-	else if(a1 < a2)
-	{
-		return -1;
-	}
-	else // that is, if(a1 > a2)
-	{
-		return 1;
-	}
+	return (* ((int*) left.ptr)) - (* ((int*) right.ptr));
 }
 
 void demo_selection_sort(int * a, int N)
