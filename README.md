@@ -25,16 +25,10 @@ We would like to sort the array above without writing a custom sort function. We
 int compare(ctemplate left, ctemplate right)
 {
 	// we know that the data is of type int (we want to sort an integer array)
-	int l = *(int*) left.ptr; 
-	int r = *(int*) right.ptr;
-
-	// compares the left and the right arguments and produce the sign of the difference
-	if(l<r){return -1;}
-	else if(l>r){return +1;} 
-	else{return 0;}
+	return ( *(int*) left.ptr - *(int*) right.ptr );
 }
 
-int assign(ctemplate left, ctemplate right) // finally, to perform write, the library expects an assignment operator
+void assign(ctemplate left, ctemplate right) // finally, to perform write, the library expects an assignment operator
 {
 	// the user knows that the data is of type int and performs assignment
 	*(int*) left.ptr = *(int*) right.ptr;
