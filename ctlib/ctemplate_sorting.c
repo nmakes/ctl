@@ -43,6 +43,62 @@ void ctl_selection_sort(
 
 
 
+ctemplate ctl_arg_selection_sort(
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+	ctl_size_t length, // Length of the array
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	/*
+		Algorithm:
+
+		For i = {0, 1, ..., length-1}
+		{
+			M = i;
+			For j = {i+1, i+2, ..., length-1}
+			{
+				if (compare(A[M], A[j]) < 0)
+				{
+					M = j;
+				}
+			}
+			swap(A[M], A[i]);
+		}
+	*/
+
+	fprintf(stderr, "CTL_WARNING::ctl_arg_selection_sort: This function is currently buggy - doesn't give correct solution. Check algo.\n");
+
+	ctemplate soln = { malloc(sizeof(ctl_size_t) * length), sizeof(ctl_size_t) };
+	for(ctl_size_t i=0; i<length; i++)
+	{
+		* (ctl_size_t*) ctl_next(soln, i).ptr = i;
+	}
+
+	ctl_size_t pos;
+	ctl_size_t p1, p2;
+	for (ctl_size_t i=0; i<length; i++)
+	{
+		pos = i;
+		for (ctl_size_t j=i+1; j<length; j++)
+		{
+			p1 = * (ctl_size_t*) ctl_next(soln, j).ptr;
+			p2 = * (ctl_size_t*) ctl_next(soln, pos).ptr;
+			if (compare(ctl_next(arr, p1), ctl_next(arr, p2)) < 0)
+			{
+				pos = j;
+			}
+		}
+		p1 = * (ctl_size_t*) ctl_next(soln, pos).ptr;
+		ctl_deep_swap(ctl_next(soln, i), ctl_next(soln, p1), &ctl_assign_ctl_size_t);
+	}
+
+	fprintf(stderr, "CTL_WARNING::ctl_arg_selection_sort: malloc'd memory for argsort solution. Remember to free the solution pointer.\n");
+
+	return soln;
+}
+
+
+
 void ctl_insertion_sort(
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
 	ctl_size_t length, // Length of the array
