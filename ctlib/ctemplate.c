@@ -32,7 +32,7 @@ ctemplate ctl_prev(
 
 void ctl_assign_ctl_size_t(ctemplate left, ctemplate right)
 {
-	(ctl_size_t*) left.ptr = (ctl_size_t*) right.ptr;
+	* (ctl_size_t*) left.ptr = * (ctl_size_t*) right.ptr;
 }
 
 
