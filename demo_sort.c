@@ -36,6 +36,21 @@ void demo_selection_sort(int * a, int N)
 	ctl_selection_sort(t_a, t_N, &demo_compare, &demo_assign);
 }
 
+void demo_arg_selection_sort(int * a, int N)
+{
+	ctemplate argsort_solution = ctl_arg_selection_sort((ctemplate){a, sizeof(int)}, N, &demo_compare, &demo_assign);
+
+	printf("ctl_arg_selection_sort::solution = ");
+	unsigned long loc;
+	for(int i=0; i<N; i++)
+	{
+		loc = * (ctl_size_t*) ctl_next(argsort_solution, i).ptr;
+		printf("%lu ", loc);
+	}
+	printf("\n");
+	free(argsort_solution.ptr); // Don't forget to free the pointer
+}
+
 void demo_insertion_sort(int * a, int N)
 {
 	// Create a ctemplate for a - to be used by the library
@@ -65,6 +80,7 @@ void demo_topk_sort(int * a, int N, int K)
 	ctl_topk_sort( (ctemplate){a, sizeof(int)}, N, K, &demo_compare, &demo_assign );
 }
 
+
 int main()
 {
 	// Create an array
@@ -87,6 +103,15 @@ int main()
 	printf("After deepswap: %d %d\n", m1, m2);
 
 	printf("Original Array:\n");
+	for(int i=0; i<N; i++)
+	{
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+
+	demo_arg_selection_sort(a, N);
+
+	printf("After Arg Sorting Array:\n");
 	for(int i=0; i<N; i++)
 	{
 		printf("%d ", a[i]);
