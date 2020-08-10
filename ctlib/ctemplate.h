@@ -49,6 +49,9 @@ ctemplate ctl_prev(
 	ctl_size_t n); // How many steps to move in memory
 
 
+void ctl_assign_ctl_size_t(ctemplate left, ctemplate right);
+
+
 void ctl_deep_swap( // Performs a deep swap!
 	ctemplate t1, // First argument
 	ctemplate t2, // Second argument

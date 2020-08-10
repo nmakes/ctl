@@ -30,6 +30,12 @@ ctemplate ctl_prev(
 }
 
 
+void ctl_assign_ctl_size_t(ctemplate left, ctemplate right)
+{
+	(ctl_size_t*) left.ptr = (ctl_size_t*) right.ptr;
+}
+
+
 void ctl_deep_swap( // Performs a deep swap!
 	ctemplate t1, // First argument
 	ctemplate t2, // Second argument
