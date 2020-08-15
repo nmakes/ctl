@@ -91,4 +91,20 @@ void ctl_merge_sort(
 	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
 	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
 
+int ctl_is_sorted( // checks if the array is sorted
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	int(*compare)(ctemplate, ctemplate)); // Pointer to the comparator function
+
+void ctl_reverse( // reverses the array
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
+
+void ctl_rotate_inplace( // shifts the array (circular) by the amount
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	ctl_size_t count, // Number of shifts to perform
+	void (*assign)(ctemplate, ctemplate)); // Pointer to the assign function (for deepswap)
+
 #endif

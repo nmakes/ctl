@@ -285,7 +285,6 @@ void ctl_quick_sort(
 }
 
 
-
 void ctl_merge_sort_merge(
 	ctemplate arr,
 	ctl_size_t ll, 
@@ -362,4 +361,82 @@ void ctl_merge_sort(
 	ctl_merge_sort_recursive(arr, 0, length-1, scratch, compare, assign);
 
 	free(scratch.ptr);
+}
+
+
+int ctl_is_sorted( // checks if the array is sorted
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	int(*compare)(ctemplate, ctemplate)) // Pointer to the comparator function
+{
+	if(length > 1)
+	{
+		for(ctl_size_t i=0; i<length-1; i++)
+		{
+			if(compare(ctl_next(arr, i), ctl_next(arr, i+1)) <= 0)
+			{
+				continue;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+
+void ctl_reverse( // reverses the array
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	for(ctl_size_t i=0; i<length/2; i++)
+	{
+		ctl_deep_swap( ctl_next(arr, i), ctl_next(arr, length-i-1), assign );
+	}
+}
+
+
+void ctl_rotate_inplace( // shifts the array (circular) by the amount
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	ctl_size_t count, // Number of shifts to perform
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	ctl_size_t dir = count > 0 ? 1 : -1;
+	ctl_size_t mag = count > 0 ? count : -count;
+
+	ctemplate temp = {malloc(arr.size), arr.size};
+
+	for(int n=1; n<=mag; n++)
+	{
+
+		if(dir == 1) // shift right
+		{
+			assign(temp, ctl_next(arr, length-1));
+
+			for(ctl_size_t i=length-1; i>0; i--)
+			{
+				assign(ctl_next(arr, i), ctl_next(arr, i-1));
+			}
+
+			assign(ctl_next(arr, 0), temp);
+		}
+		else // shift left
+		{
+			assign(temp, ctl_next(arr, 0));
+
+			for(ctl_size_t i=0; i<length-1; i++)
+			{
+				assign(ctl_next(arr, i), ctl_next(arr, i+1));
+			}
+
+			assign(ctl_next(arr, length-1), temp);
+		}
+	}
 }
