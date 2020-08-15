@@ -63,4 +63,7 @@ void ctl_assert(
 	char * message); // Message to throw if condition fails
 
 
+void ctl_exception(
+	char * message);
+
 #endif

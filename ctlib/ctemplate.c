@@ -61,7 +61,15 @@ void ctl_assert(
 {
 	if (!condition)
 	{
-		printf("ERROR: Assert Failed with the message \"%s\"", message);
+		printf("CTL_ASSERT_EXCEPTION: Assert Failed with the message \"%s\"", message);
 		exit(1);
 	}
+}
+
+
+void ctl_exception(
+	char * message)
+{
+	printf("CTL_EXCEPTION: {}\n", message);
+	exit(1);
 }

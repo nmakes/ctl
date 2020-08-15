@@ -8,7 +8,7 @@ ctemplate ctl_fractional_knapsack( // returns a float array in template
 	float (*divide)(ctemplate, ctemplate));
 {
 
-	ctl_assert(0, "Not Implemented Yet");
+	ctl_exception("Not Implemented Yet");
 
 	ctemplate solution = {malloc(sizeof(float) * length), sizeof(float)};
 	ctemplate value_per_weight = {malloc(sizeof(float) * length), sizeof(float)};
