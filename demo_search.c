@@ -122,6 +122,7 @@ void demo_linear_search_transpose_exponential(int * a, int N, int key)
 	}
 }
 
+
 void plot(int * a, int N)
 {
 	printf("Array Is: ");
