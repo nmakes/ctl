@@ -55,7 +55,7 @@ ctl_size_t ctl_linear_search(
 }
 
 
-ctl_size_t ctl_linear_search_transpose( // Performs transposition after searching
+ctl_size_t ctl_linear_search_transpose( // Performs transposition after searching (for faster next access)
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
 	ctl_size_t length, // Length of the array
 	ctemplate key, // ctemplate containing pointer to the value to be searched for
@@ -64,12 +64,42 @@ ctl_size_t ctl_linear_search_transpose( // Performs transposition after searchin
 {
 	ctl_size_t index = ctl_linear_search(arr, length, key, compare);
 
+	ctl_size_t new_index = index - 1;
+
 	if ( (index < length) && (index > 0))
 	{
-		ctl_deep_swap( ctl_next(arr, index), ctl_next(arr, index-1), assign );
+		ctl_deep_swap( ctl_next(arr, index), ctl_next(arr, new_index), assign );
+		return new_index;
+	}
+	else
+	{
+		return index;
 	}
 
-	return index
+}
+
+
+ctl_size_t ctl_linear_search_transpose_exponential( // Performs exponential transposition after searching
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	ctemplate key, // ctemplate containing pointer to the value to be searched for
+	int (*compare)(ctemplate, ctemplate), // Pointer to the comparator function
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
+{
+	ctl_size_t index = ctl_linear_search(arr, length, key, compare);
+
+	ctl_size_t new_index = index / 2;
+
+	if ( (index < length) && (index > 0))
+	{
+		ctl_deep_swap( ctl_next(arr, index), ctl_next(arr, new_index), assign );
+		return new_index;
+	}
+	else
+	{
+		return index;
+	}
+
 }
 
 
