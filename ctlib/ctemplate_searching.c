@@ -103,6 +103,44 @@ ctl_size_t ctl_linear_search_transpose_exponential( // Performs exponential tran
 }
 
 
+int is_sorted( // checks if the array is sorted
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	int(*compare)(ctemplate, ctemplate)) // Pointer to the comparator function
+{
+	if(length > 1)
+	{
+		for(ctl_size_t i=0; i<length-1; i++)
+		{
+			if(compare(ctl_next(arr, i), ctl_next(arr, i+1)))
+			{
+				continue;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+
+void reverse( // reverses the array
+	ctemplate arr,
+	ctl_size_t length,
+	void (*assign)(ctemplate, ctemplate))
+{
+	for(ctl_size_t i=0; i<length/2; i++)
+	{
+		ctl_deep_swap( ctl_next(arr, i), ctl_next(arr, length-i-1), assign );
+	}
+}
+
+
 ctemplate ctl_max(
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
 	ctl_size_t length, // Length of the array
