@@ -112,7 +112,7 @@ int ctl_is_sorted( // checks if the array is sorted
 	{
 		for(ctl_size_t i=0; i<length-1; i++)
 		{
-			if(compare(ctl_next(arr, i), ctl_next(arr, i+1)))
+			if(compare(ctl_next(arr, i), ctl_next(arr, i+1)) <= 0)
 			{
 				continue;
 			}
@@ -141,21 +141,40 @@ void ctl_reverse( // reverses the array
 }
 
 
-void ctl_rotate( // shifts the array (circular) by the amount
+void ctl_rotate_inplace( // shifts the array (circular) by the amount
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
 	ctl_size_t length, // Length of the array
 	ctl_size_t count, // Number of shifts to perform
 	void (*assign)(ctemplate, ctemplate))
 {
-	ctl_size_t p2;
+	ctl_size_t dir = count > 0 ? 1 : -1;
+	ctl_size_t mag = count > 0 ? count : -count;
+
 	ctemplate temp = {malloc(arr.size), arr.size};
 
-	assign(temp, ctl_next(arr, 0));
-
-	for(ctl_size_t i=0; i<length; i++)
+	for(int n=1; n<=mag; n++)
 	{
-		p2 = (i + count) % length;
-		ctl_deep_swap(ctl_next(arr, p2), temp);
+
+		if(dir == 1) // shift right
+		{
+			assign(temp, ctl_next(arr, length-1));
+
+			for(ctl_size_t i=length-1; i>0; i--)
+			{
+				assign(ctl_next(arr, i), ctl_next(arr, i-1));
+			}
+
+			assign(ctl_next(arr, 0), temp);
+		}
+		else // shift left
+		{
+			assign(temp, ctl_next(arr, 0));
+
+			for(ctl_size_t i=0; i<length-1; i++)
+			{
+				assign(ctl_next(arr, i), ctl_next(arr, i+1));
+			}
+		}
 	}
 }
 

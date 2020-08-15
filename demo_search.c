@@ -125,13 +125,13 @@ void demo_linear_search_transpose_exponential(int * a, int N, int key)
 
 void demo_is_sorted(int * a, int N)
 {
-	if (ctl_is_sorted(a, N, &demo_compare))
+	if (ctl_is_sorted((ctemplate){a, sizeof(int)}, N, &demo_compare))
 	{
-		prinf("Array is sorted.\n");
+		printf("Array is sorted.\n");
 	}
 	else
 	{
-		prinf("Array is not sorted.\n");
+		printf("Array is not sorted.\n");
 	}
 }
 
@@ -145,7 +145,24 @@ void plot(int * a, int N)
 		printf("%d ", a[i]);
 	}
 
-	printf("\n\n");
+	printf("\n");
+}
+
+void nl()
+{
+	printf("\n");
+}
+
+void demo_reverse(int * a, int N)
+{
+	printf("Reversing list.\n");
+	ctl_reverse((ctemplate){a, sizeof(int)}, N, &demo_assign);
+}
+
+void demo_rotate_inplace(int * a, int N, int c)
+{
+	printf("Rotating the list by %d\n", c);
+	ctl_rotate_inplace((ctemplate){a, sizeof(int)}, N, c, &demo_assign);
 }
 
 int main()
@@ -154,17 +171,20 @@ int main()
 	int a[] = {1, 6, 7, 15, 18, 24, 39, 45, 50, 62, 88, 100};
 	int N = sizeof(a) / sizeof(int);
 
-	plot(a, N); demo_is_sorted(a, N);
+	plot(a, N); demo_is_sorted(a, N); nl();
 
-	demo_binary_search(a, N, 39); plot(a, N); demo_is_sorted(a, N);
+	demo_binary_search(a, N, 39); plot(a, N); demo_is_sorted(a, N); nl();
 
-	demo_binary_search(a, N, 25); plot(a, N); demo_is_sorted(a, N);
+	demo_binary_search(a, N, 25); plot(a, N); demo_is_sorted(a, N); nl();
 
-	demo_linear_search(a, N, 88); plot(a, N); demo_is_sorted(a, N);
+	demo_linear_search(a, N, 88); plot(a, N); demo_is_sorted(a, N); nl();
 
-	demo_linear_search_transpose(a, N, 18); plot(a, N); demo_is_sorted(a, N);
+	demo_linear_search_transpose(a, N, 18); plot(a, N); demo_is_sorted(a, N); nl();
 
-	demo_linear_search_transpose_exponential(a, N, 24); plot(a, N); demo_is_sorted(a, N);
+	demo_linear_search_transpose_exponential(a, N, 24); plot(a, N); demo_is_sorted(a, N); nl();
 
+	demo_reverse(a, N); plot(a, N); nl();
+
+	demo_rotate_inplace(a, N, 4); plot(a, N); nl();
 
 }
