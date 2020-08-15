@@ -174,6 +174,8 @@ void ctl_rotate_inplace( // shifts the array (circular) by the amount
 			{
 				assign(ctl_next(arr, i), ctl_next(arr, i+1));
 			}
+
+			assign(ctl_next(arr, length-1), temp);
 		}
 	}
 }

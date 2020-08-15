@@ -185,6 +185,8 @@ int main()
 
 	demo_reverse(a, N); plot(a, N); nl();
 
+	demo_rotate_inplace(a, N, -3); plot(a, N); nl();
+
 	demo_rotate_inplace(a, N, 4); plot(a, N); nl();
 
 }
