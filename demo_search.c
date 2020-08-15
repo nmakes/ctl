@@ -123,6 +123,19 @@ void demo_linear_search_transpose_exponential(int * a, int N, int key)
 }
 
 
+void demo_is_sorted(int * a, int N)
+{
+	if (ctl_is_sorted(a, N, &demo_compare))
+	{
+		prinf("Array is sorted.\n");
+	}
+	else
+	{
+		prinf("Array is not sorted.\n");
+	}
+}
+
+
 void plot(int * a, int N)
 {
 	printf("Array Is: ");
@@ -141,17 +154,17 @@ int main()
 	int a[] = {1, 6, 7, 15, 18, 24, 39, 45, 50, 62, 88, 100};
 	int N = sizeof(a) / sizeof(int);
 
-	plot(a, N);
+	plot(a, N); demo_is_sorted(a, N);
 
-	demo_binary_search(a, N, 39); plot(a, N);
+	demo_binary_search(a, N, 39); plot(a, N); demo_is_sorted(a, N);
 
-	demo_binary_search(a, N, 25); plot(a, N);
+	demo_binary_search(a, N, 25); plot(a, N); demo_is_sorted(a, N);
 
-	demo_linear_search(a, N, 88); plot(a, N);
+	demo_linear_search(a, N, 88); plot(a, N); demo_is_sorted(a, N);
 
-	demo_linear_search_transpose(a, N, 18); plot(a, N);
+	demo_linear_search_transpose(a, N, 18); plot(a, N); demo_is_sorted(a, N);
 
-	demo_linear_search_transpose_exponential(a, N, 24); plot(a, N);
+	demo_linear_search_transpose_exponential(a, N, 24); plot(a, N); demo_is_sorted(a, N);
 
 
 }

@@ -103,7 +103,7 @@ ctl_size_t ctl_linear_search_transpose_exponential( // Performs exponential tran
 }
 
 
-int is_sorted( // checks if the array is sorted
+int ctl_is_sorted( // checks if the array is sorted
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
 	ctl_size_t length, // Length of the array
 	int(*compare)(ctemplate, ctemplate)) // Pointer to the comparator function
@@ -129,14 +129,33 @@ int is_sorted( // checks if the array is sorted
 }
 
 
-void reverse( // reverses the array
-	ctemplate arr,
-	ctl_size_t length,
-	void (*assign)(ctemplate, ctemplate))
+void ctl_reverse( // reverses the array
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	for(ctl_size_t i=0; i<length/2; i++)
 	{
 		ctl_deep_swap( ctl_next(arr, i), ctl_next(arr, length-i-1), assign );
+	}
+}
+
+
+void ctl_rotate( // shifts the array (circular) by the amount
+	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
+	ctl_size_t length, // Length of the array
+	ctl_size_t count, // Number of shifts to perform
+	void (*assign)(ctemplate, ctemplate))
+{
+	ctl_size_t p2;
+	ctemplate temp = {malloc(arr.size), arr.size};
+
+	assign(temp, ctl_next(arr, 0));
+
+	for(ctl_size_t i=0; i<length; i++)
+	{
+		p2 = (i + count) % length;
+		ctl_deep_swap(ctl_next(arr, p2), temp);
 	}
 }
 
