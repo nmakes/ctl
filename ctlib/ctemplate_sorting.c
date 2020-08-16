@@ -11,7 +11,7 @@ void ctl_selection_sort(
 	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	/*
-		Algorithm:
+		Algorithm: 
 
 		For i = {0, 1, ..., length-1}
 		{
@@ -106,7 +106,7 @@ void ctl_insertion_sort(
 	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	/*
-		Algorithm: stable, adaptive
+		Algorithm: stable, adaptive, O(n^2)
 
 		For i = {1, 2, ..., length}
 		{
@@ -148,7 +148,7 @@ void ctl_bubble_sort(
 	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	/*
-		Algorithm: stable, adaptive
+		Algorithm: stable, adaptive, O(n^2)
 
 		For i = {0, 1, 2, ..., length-1}
 		{
@@ -192,7 +192,7 @@ void ctl_topk_sort(
 	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	/*
-		Algorithm:
+		Algorithm: not stable, not adaptive, O(n*k)
 
 		For i = {0, 1, ..., k-1}
 		{
@@ -231,15 +231,7 @@ ctl_size_t ctl_quick_sort_partition(
 	int (*compare)(ctemplate, ctemplate),
 	void (*assign)(ctemplate, ctemplate))
 {
-
-	// printf("Partition with %ld, %ld", low, high);
-
 	ctl_size_t pivot = low;
-
-	// if (low > high)
-	// {
-	// 	return -1;
-	// }
 
 	ctl_size_t i = low, j = high;
 
@@ -370,6 +362,53 @@ void ctl_merge_sort(
 
 	free(scratch.ptr);
 }
+
+
+// TODO: Count sort after implementing list (chaining required in buckets)
+// void ctl_count_sort(
+// 	ctemplate arr, // ctemplate containing a pointer to the starting address of the array (and element size)
+// 	ctl_size_t length, // Length of the array
+// 	int (*get)(ctemplate)) // Pointer to the get function
+// {
+// 	ctl_longer_t v, max_elem = get(arr);
+
+// 	for(ctl_longer_t i=0; i<length; i++)
+// 	{
+// 		v = get(ctl_next(arr, i));
+// 		max_elem = max_elem > v ? max_elem : v;
+// 	}
+
+// 	ctl_longer_t * tab = (ctl_longer_t *) malloc( (max_elem+1) * sizeof(ctl_longer_t) );
+
+// 	for(ctl_longer_t i=0; i<=max_elem; i++)
+// 	{
+// 		tab[i] = 0;
+// 	}
+
+// 	for(ctl_size_t i=0; i<length; i++)
+// 	{
+// 		tab[get(ctl_next(arr, i))]++;
+// 	}
+
+// 	ctl_size_t p = 0;
+// 	for(ctl_longer_t i=0; i<=max_elem; i++)
+// 	{
+// 		if(tab[i] == 0)
+// 		{
+// 			continue;
+// 		}
+// 		else
+// 		{
+// 			while(tab[i]--)
+// 			{
+
+// 			}
+// 		}
+// 	}
+
+// 	free(tab);
+// }
+
 
 
 int ctl_is_sorted( // checks if the array is sorted

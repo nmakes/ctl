@@ -23,6 +23,8 @@
 
 typedef long int ctl_size_t;
 
+typedef long long int ctl_longer_t;
+
 typedef struct
 {
 	void * ptr;
