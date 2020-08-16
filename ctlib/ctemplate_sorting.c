@@ -162,6 +162,8 @@ void ctl_bubble_sort(
 		}
 	*/
 
+	int flag = 0;
+
 	for (ctl_size_t i=0; i<length; i++)
 	{
 		for (ctl_size_t j=length-1; j>i; j--)
@@ -169,8 +171,11 @@ void ctl_bubble_sort(
 			if (compare(ctl_next(arr, j), ctl_next(arr, j-1)) < 0)
 			{
 				ctl_deep_swap(ctl_next(arr, j), ctl_next(arr, j-1), assign);
+				flag = 1;
 			}
 		}
+
+		if(flag == 0) break;
 	}
 }
 
