@@ -106,7 +106,7 @@ void ctl_insertion_sort(
 	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	/*
-		Algorithm:
+		Algorithm: stable, adaptive
 
 		For i = {1, 2, ..., length}
 		{
@@ -148,15 +148,17 @@ void ctl_bubble_sort(
 	void (*assign)(ctemplate, ctemplate)) // Pointer to the assign function (for deepswap)
 {
 	/*
-		Algorithm:
+		Algorithm: stable, adaptive
 
 		For i = {0, 1, 2, ..., length-1}
 		{
+			flag = 0;
 			For j = {length-1, length-2, ..., i}
 			{
 				if (compare(A[j], A[j-1]) < 0)
 				{
 					swap(A[j], A[j-1]);
+					flag = 1;
 				}
 			}
 		}
@@ -166,6 +168,7 @@ void ctl_bubble_sort(
 
 	for (ctl_size_t i=0; i<length; i++)
 	{
+		flag = 0;
 		for (ctl_size_t j=length-1; j>i; j--)
 		{
 			if (compare(ctl_next(arr, j), ctl_next(arr, j-1)) < 0)
