@@ -97,6 +97,8 @@ void ctl_merge_sort(
 // 	ctl_size_t length, // Length of the array
 // 	int (*get)(ctemplate)); // Pointer to the get function
 
+// TODO: Implement shell sort
+
 int ctl_is_sorted( // checks if the array is sorted
 	ctemplate arr, // ctemplate containing a pointer to the starting address of the sorted array (and size)
 	ctl_size_t length, // Length of the array
